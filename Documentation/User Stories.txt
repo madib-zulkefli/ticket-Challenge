@@ -1,0 +1,12 @@
+US-1 VIEW ALL TICKETS 1
+-----------------------
+As a user, I want to be able to
+view info on all my tickets
+so that I can have an overview of the
+tickets
+
+US-2 VIEW ONE TICKET 1
+-----------------------
+As a user, I want to view the details
+of one ticket so that I can get more info
+on a specific ticket
