@@ -1,0 +1,22 @@
+MAIN Flow
+----------
+getcredentials() - from config file
+testCredentials() - make a ticket request
+	if ok
+runMenuProcess()
+	if quit
+END
+
+
+MENU PROCESS FLOW
+-----------------
+setUpMenus() - use Command Pattern structure to add menu options to menus
+
+while True
+-Display Menu
+-get user input
+-compare response
+	-> if eg. view Ticket -> setCommand(viewTicket)
+-runAction
+continue loop or quit
+END
