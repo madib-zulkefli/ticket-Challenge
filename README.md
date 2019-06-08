@@ -7,6 +7,9 @@ It takes the data from the config json file to make a request to the zendesk API
 - (from `ruby -v` command) -> ruby 2.6.3p62 (2019-04-16 revision 67580) [x64-mingw32]
 - Visual Studios Code Verison 1.35.0
 ## Installation
+This program uses the `rest-client` library to make requests to the Zendesk API so you will need to run  
+`gem install rest-client`  
+  
 Since development was done on a windows environment, if you are using a different OS, you might have to replace the backslash `\` in the `require_relative` statements located in:  
 ```
 main.rb line 3
