@@ -7,8 +7,8 @@ require 'base64'
 class JsonUtils
   # this method gets the encrypted data from the json file and decodes it
   # into usable data
-  def self.retrieve_credentials
-    credsraw = File.read('config.json')
+  def self.retrieve_credentials(filename = 'config.json')
+    credsraw = File.read(filename)
     credsencrypted = JSON.parse(credsraw)
     creds = {
       'subdomain' => Base64.decode64(credsencrypted['subdomain']),
