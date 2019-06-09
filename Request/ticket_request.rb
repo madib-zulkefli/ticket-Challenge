@@ -34,28 +34,38 @@ class TicketRequest
       headers: { accept: :json, content_type: :json }
     ).execute
     if request_data.code != 200
-      raise BadRequestException.new(
-        "ERROR: Could not make request
+      puts 'entered exception'
+      raise BadRequestException, "ERROR: Could not make request
         Consider checking the credentials in the config file"
-      )
     end
     request_data.code
   end
 
   # this code was adapted from an answer at
   # https://stackoverflow.com/questions/3692574/how-do-i-do-basic-authentication-with-restclient#4223252
+  # this code raises its own exceptions, exception handling found at
+  # https://www.rubydoc.info/gems/rest-client/
   def make_request(url, user = @email, pass = @pass)
-    request_data = RestClient::Request.new(
-      method: :get, url: url,
-      user: user, password: pass,
-      headers: { accept: :json, content_type: :json }
-    ).execute
-    if request_data.code != 200
-      raise BadRequestException.new(
-        "ERROR: Could not make request
-        Consider checking the credentials in the config file"
-      )
+    begin
+      request_data = RestClient::Request.new(
+        method: :get, url: url,
+        user: user, password: pass,
+        headers: { accept: :json, content_type: :json }
+      ).execute
+    rescue RestClient::Unauthorized, RestClient::Forbidden => e
+      puts 'REQUEST:' + e.response.to_s
+      puts 'Please ensure that credentials are correct in the config file'
+      raise BadRequestException
+    rescue SocketError
+      puts 'REQUEST: Failed to connect'
+      puts 'Please ensure that the url is correctly provided'
+      raise BadRequestException
+    rescue RestClient::ExceptionWithResponse => e
+      puts 'REQUEST: something went wrong with the request'
+      puts e.response.to_s
+      raise BadRequestException
     end
+    puts 'code left begin statement'
     JsonUtils.parse_data(request_data.body)
   end
 end
