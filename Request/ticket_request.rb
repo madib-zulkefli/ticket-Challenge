@@ -27,16 +27,21 @@ class TicketRequest
   # this method returns the request return code,
   # just to see if the credentials work
   def check_auth(user = @email, pass = @pass)
-    url = make_ticket_id_url('2')
-    request_data = RestClient::Request.new(
-      method: :get, url: url,
-      user: user, password: pass,
-      headers: { accept: :json, content_type: :json }
-    ).execute
-    if request_data.code != 200
-      puts 'entered exception'
-      raise BadRequestException, "ERROR: Could not make request
-        Consider checking the credentials in the config file"
+    url = make_ticket_all_url
+    begin
+      request_data = RestClient::Request.new(
+        method: :get, url: url,
+        user: user, password: pass,
+        headers: { accept: :json, content_type: :json }
+      ).execute
+    rescue RestClient::Unauthorized, RestClient::Forbidden => e
+      puts 'REQUEST:' + e.response.to_s
+      puts 'Please ensure that credentials are correct in the config file'
+      raise BadRequestException
+    rescue RestClient::ExceptionWithResponse => e
+      puts 'REQUEST: something went wrong with the request'
+      puts e.response.to_s
+      raise BadRequestException
     end
     request_data.code
   end
@@ -65,7 +70,6 @@ class TicketRequest
       puts e.response.to_s
       raise BadRequestException
     end
-    puts 'code left begin statement'
     JsonUtils.parse_data(request_data.body)
   end
 end

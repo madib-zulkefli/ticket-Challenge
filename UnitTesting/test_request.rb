@@ -14,10 +14,8 @@ class TestTicketRequests < Test::Unit::TestCase
   # https://stackoverflow.com/questions/7296600/proper-assert-raise-unit-testing-and-use-of-exception-class
   def test_bad_creds_request
     bad_creds = JsonUtils.retrieve_credentials('UnitTesting/bad_config.json')
-    url = @@requester.make_ticket_id_url('2')
     assert_raise(BadRequestException) do
-      @@requester.make_request(
-        url,
+      @@requester.check_auth(
         bad_creds['email'],
         bad_creds['pass']
       )
