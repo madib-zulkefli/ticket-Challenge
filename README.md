@@ -25,4 +25,4 @@ This section will contain any additional information I would like to share regar
 - Ruby - This was my first time using Ruby. I had heard that Zendesk uses it a fair bit so I thought this was a good chance to learn it. Lots of Googling done.
 ### Extensibility and reusability
 I noticed an interesting line in Adel's blog post that was shared with us, it said "*Design your solution to be robust, extensible and simple*"  
-So with that in mind, I have written the request code to be able to accept parameters to allow for dependency injection and make it more reusable.
+So with that in mind, I have written the request code to be able to accept parameters to allow for dependency injection to make it more reusable.
