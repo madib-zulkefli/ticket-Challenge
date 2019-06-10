@@ -18,8 +18,10 @@ class Main
     begin
       request.check_auth
       puts 'run menu process'
-      menu.display_menu
-      menu.run_menu_process
+      loop do
+        menu.display_menu
+        menu.run_menu_process
+      end
     rescue BadRequestException, MenuQuitException
       puts 'ending menu process'
     end

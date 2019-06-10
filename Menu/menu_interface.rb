@@ -20,6 +20,7 @@ class MenuInterface
 
   def display_menu
     # display menu data goes here to avoid clutter
+    puts '----------------'
     puts 'TICKET VIEWER'
     puts '----------------'
     puts 'Enter:'

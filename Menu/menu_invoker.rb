@@ -32,7 +32,6 @@ class MenuInvoker
     # if no match was found among all options
     if !@selected_option
       puts 'That is not a valid input'
-      raise MenuQuitException
     end
   end
 
