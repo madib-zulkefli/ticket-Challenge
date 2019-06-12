@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'menu_quit_exception'
+require_relative '../Request/bad_request_exception'
 
 # this class will act as an invoker in a command pattern
 # it will contain all the menu option "command" objects
@@ -11,7 +12,7 @@ class MenuInvoker
     @selected_option = nil
   end
 
-  def display_menu
+  def display_menu_options
     for menu_options in @menu_options_list
       menu_options.display_prompt
     end
@@ -30,14 +31,20 @@ class MenuInvoker
       end
     end
     # if no match was found among all options
-    if !@selected_option
-      puts 'That is not a valid input'
-    end
+    puts 'That is not a valid input' unless @selected_option
   end
 
   # execute the selected option once chosen
   def execute_menu_action
-    @selected_option&.execute_action
+    # execute the action if selected_option
+    # is not still nil
+    begin
+      @selected_option&.execute_action
+    rescue BadRequestException
+      puts 'REQUEST: Returning to the menu'
+    end
+    # once the action has been taken,
+    # reset current selected option
     @selected_option = nil
   end
 end

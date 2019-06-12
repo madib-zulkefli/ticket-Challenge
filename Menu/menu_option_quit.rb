@@ -3,7 +3,7 @@
 # this class creates an object to handle a quit menu option
 class MenuOptionQuit < MenuOption
   def display_prompt
-    puts " 'quit' to quit to the menu"
+    puts "  'quit' to quit to the menu"
   end
 
   def check_response(response)

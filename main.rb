@@ -9,23 +9,24 @@ require_relative 'Request/bad_request_exception'
 # this is where the program will be run from
 class Main
   def main
-    puts 'getting credentials from config'
-    creds = JsonUtils.retrieve_credentials
-    puts 'test credentials on ticket request'
+    puts 'Getting credentials from config'
+    creds = JsonUtils.retrieve_config
+    puts 'Testing credentials on ticket request'
     request = TicketRequest.new(creds)
     menu = MenuInterface.new(request)
 
     begin
       request.check_auth
-      puts 'run menu process'
       loop do
         menu.display_menu
         menu.run_menu_process
       end
-    rescue BadRequestException, MenuQuitException
-      puts 'ending menu process'
+    rescue MenuQuitException
+      puts 'MENU: Ending menu process'
+    rescue BadRequestException
+      puts 'REQUEST: Ending menu process'
     end
-    puts 'quitting the program'
+    puts 'Quitting the program'
   end
 end
 

@@ -7,13 +7,13 @@ require_relative '../JsonUtils/json_utils'
 
 # this class contains unit tests for the JsonUtils class of methods
 class TestTicketRequests < Test::Unit::TestCase
-  @@creds = JsonUtils.retrieve_credentials
+  @@creds = JsonUtils.retrieve_config
   @@requester = TicketRequest.new(@@creds)
 
   # referred here for how to use assert_raise
   # https://stackoverflow.com/questions/7296600/proper-assert-raise-unit-testing-and-use-of-exception-class
   def test_bad_creds_request
-    bad_creds = JsonUtils.retrieve_credentials('UnitTesting/bad_config.json')
+    bad_creds = JsonUtils.retrieve_config('UnitTesting/bad_config.json')
     assert_raise(BadRequestException) do
       @@requester.check_auth(
         bad_creds['email'],

@@ -16,6 +16,6 @@ class TestJsonUtils < Test::Unit::TestCase
 
   def test_retrieve_creds
     expect_subdomain = 'adibcodingchallenge'
-    assert_equal(JsonUtils.retrieve_credentials['subdomain'], expect_subdomain)
+    assert_equal(JsonUtils.retrieve_config['subdomain'], expect_subdomain)
   end
 end
